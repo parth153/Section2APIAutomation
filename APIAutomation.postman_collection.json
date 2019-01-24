@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "15cda6c8-f373-4391-b8c7-6c96d4a4b08a",
+		"name": "VanguardAPIAutomation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetNavPriceList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7a74429-a4ae-4eed-9166-8dbc69e04221",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body contains navPriceArray string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"navPriceArray\");",
+							"});",
+							"    ",
+							"pm.test(\"Verify Data for First Array Object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var portID = jsonData[0].portId",
+							"    pm.expect(portID).to.eql('8205');",
+							"    ",
+							"    var navPriceArray = jsonData[0].navPriceArray[0];",
+							"    pm.expect(navPriceArray.amountChange).to.eql(-0.1985);",
+							"    pm.expect(navPriceArray.asOfDate).to.eql(\"2019-01-23T00:00:00-05:00\");",
+							"    pm.expect(navPriceArray.final).to.eql(true);",
+							"    pm.expect(navPriceArray.isFinal).to.eql(true);",
+							"    pm.expect(navPriceArray.percentChange).to.eql(-0.27);",
+							"    pm.expect(navPriceArray.price).to.eql(73.9092);",
+							"    pm.expect(navPriceArray.yield).to.eql(null);",
+							"    ",
+							"    var currency = navPriceArray.currency;",
+							"    pm.expect(currency.currencyCode).to.eql(\"AUD\");",
+							"    pm.expect(currency.currencyLocation).to.eql(\"L\");",
+							"    pm.expect(currency.currencySymbol).to.eql(\"$\");",
+							"    ",
+							"    var measureType = navPriceArray.measureType;",
+							"    pm.expect(measureType.measureCode).to.eql(\"NAV\");",
+							"    pm.expect(measureType.measureDesc).to.eql(\"Net Asset Value\");",
+							"    ",
+							"    var pricePeriodType = navPriceArray.pricePeriodType;",
+							"    pm.expect(pricePeriodType.pricePeriodCode).to.eql(\"DAILY\");",
+							"    pm.expect(pricePeriodType.pricePeriodDesc).to.eql(\"Daily Price\");",
+							"    ",
+							"    var priceStatusType = navPriceArray.priceStatusType;",
+							"    pm.expect(priceStatusType.priceStatusCode).to.eql(\"FINAL\");",
+							"    pm.expect(priceStatusType.priceStatusDesc).to.eql(\"Final Price\");",
+							"    ",
+							"    console.log(jsonData[0].navPriceArray);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Response Header Content-Type check\", function(){",
+							"    ",
+							"    var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Content-Type\");",
+							" ",
+							"    tests[\"Has Content-Type\"] = contentTypeHeaderExists;",
+							" ",
+							"    if (contentTypeHeaderExists) {",
+							"    tests[\"Content-Type is application/json\"] = ",
+							"      responseHeaders[\"Content-Type\"].has(\"application/x-javascript\");",
+							"}",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://www.vanguardinvestments.com.au/retail/mvc/getNavPriceList.jsonp?portId=8205",
+					"protocol": "https",
+					"host": [
+						"www",
+						"vanguardinvestments",
+						"com",
+						"au"
+					],
+					"path": [
+						"retail",
+						"mvc",
+						"getNavPriceList.jsonp"
+					],
+					"query": [
+						{
+							"key": "portId",
+							"value": "8205"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
