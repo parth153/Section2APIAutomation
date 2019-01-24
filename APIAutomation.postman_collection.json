@@ -83,7 +83,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://www.vanguardinvestments.com.au/retail/mvc/getNavPriceList.jsonp?portId=8205",
+					"raw": "https://www.vanguardinvestments.com.au/retail/mvc/getNavPriceList.jsonp",
 					"protocol": "https",
 					"host": [
 						"www",
@@ -95,12 +95,6 @@
 						"retail",
 						"mvc",
 						"getNavPriceList.jsonp"
-					],
-					"query": [
-						{
-							"key": "portId",
-							"value": "8205"
-						}
 					]
 				}
 			},
